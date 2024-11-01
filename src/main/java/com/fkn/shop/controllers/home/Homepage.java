@@ -11,9 +11,4 @@ public class Homepage {
         return "home";
     }
 
-    @GetMapping ("/access-denied")
-    public String accessDenied () {
-        return "access-denied";
-    }
-
 }

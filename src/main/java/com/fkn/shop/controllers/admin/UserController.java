@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @GetMapping("/admin/user")
-    public String home() {
+    @GetMapping("/ad/user")
+    public String adminUser() {
         return "admin/users";
     }
 
