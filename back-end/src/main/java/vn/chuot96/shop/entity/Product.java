@@ -1,6 +1,7 @@
 package vn.chuot96.shop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.HashSet;
@@ -23,12 +24,17 @@ public class Product {
     @JoinColumn(name = "status")
     private Tag status;
 
+    @NotBlank(message = "Product Name must not be blank")
     private String name;
 
+    @PositiveOrZero(message = "Quantity must be zero or a positive number")
     private int quantity;
 
+    @PositiveOrZero(message = "Price must be zero or a positive number")
     private double price;
 
+    @Min(value = 0, message = "Discount must be at least 0%")
+    @Max(value = 100, message = "Discount cannot exceed 100%")
     private int discount;
 
     @ManyToMany
