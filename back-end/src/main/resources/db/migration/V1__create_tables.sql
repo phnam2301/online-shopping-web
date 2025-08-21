@@ -1,19 +1,3 @@
--- Drop schema if exists
-DROP SCHEMA IF EXISTS shop CASCADE;
-
-CREATE SCHEMA shop;
-
--- =====================================================
--- Function auto update column "updated"
--- =====================================================
-CREATE OR REPLACE FUNCTION shop.set_updated_timestamp()
-RETURNS TRIGGER AS $$
-BEGIN
-  NEW.updated = now();
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
 -- =====================================================
 -- Table tags
 -- =====================================================
@@ -24,11 +8,6 @@ CREATE TABLE shop.tags (
 	created TIMESTAMPTZ DEFAULT now(),
 	updated TIMESTAMPTZ
 );
-
-CREATE TRIGGER trg_tags_updated
-BEFORE UPDATE ON shop.tags
-FOR EACH ROW
-EXECUTE FUNCTION shop.set_updated_timestamp();
 
 -- =====================================================
 -- Table permission
@@ -59,11 +38,6 @@ CREATE TABLE shop.users (
 	updated TIMESTAMPTZ
 );
 
-CREATE TRIGGER trg_users_updated
-BEFORE UPDATE ON shop.users
-FOR EACH ROW
-EXECUTE FUNCTION shop.set_updated_timestamp();
-
 -- =====================================================
 -- Table products
 -- =====================================================
@@ -80,11 +54,6 @@ CREATE TABLE shop.products (
 	created TIMESTAMPTZ DEFAULT now(),
 	updated TIMESTAMPTZ
 );
-
-CREATE TRIGGER trg_products_updated
-BEFORE UPDATE ON shop.products
-FOR EACH ROW
-EXECUTE FUNCTION shop.set_updated_timestamp();
 
 -- =====================================================
 -- Table product_category
@@ -120,11 +89,6 @@ CREATE TABLE shop.orders (
 	created TIMESTAMPTZ DEFAULT now(),
 	updated TIMESTAMPTZ
 );
-
-CREATE TRIGGER trg_orders_updated
-BEFORE UPDATE ON shop.orders
-FOR EACH ROW
-EXECUTE FUNCTION shop.set_updated_timestamp();
 
 -- =====================================================
 -- Table order_items
